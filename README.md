@@ -15,3 +15,7 @@ pnpm create vite test-vue --template vue-ts
 cd test-vue
 pnpm install
 pnpm run dev
+
+# 參考資料
+
+https://github.com/vuejs/awesome-vue

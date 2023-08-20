@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		
+		<script src="https://cdn.jsdelivr.net/npm/primevue@3.32.1/core/core.min.js"></script>
+		<link href="https://cdn.jsdelivr.net/npm/primevue@3.32.1/resources/primevue.min.css" rel="stylesheet">
+
+	</head>
+	<body>
+		<div id="app">
+			<cmp1></cmp1>
+			<cmp2></cmp2>
+			
+		</div>
+				
+		<script type="module">
+		  const { createApp, ref } = Vue
+
+		  var cpm1 = {
+			name: 'cmp1',
+			template: '<div>cpm1</div>'
+		  };
+		  var cpm2 = {
+			name: 'cmp2',
+			template: '<div>cpm2</div>',
+			render() {
+				return Vue.h('div', {id:'a', innerHTML: 'hello'});
+				return '<div>rr</div>';
+			}
+		  };
+		  var app = createApp({
+			data(vm) {
+				console.log(arguments);
+				return {
+					message: 'Hello'
+				};
+			},
+			created() {
+			
+			}
+		  });
+		  
+		  app.component('cmp1', cpm1);
+		  app.component('cmp2', cpm2);
+		  
+		  app.mount('#app')
+		</script>		
+	</body>
+</html>
