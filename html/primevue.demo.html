@@ -2,11 +2,25 @@
 <head>
   <script src="https://unpkg.com/vue@next"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js"></script>
-  
+
+  <link rel="stylesheet" href="https://unpkg.com/primeflex/primeflex.css">
+  <link rel="stylesheet" href="https://unpkg.com/primeflex/themes/primeone-dark.css">
+
+	
   <!-- primevue -->
+  <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet">
   <link href="https://unpkg.com/primevue/resources/themes/saga-blue/theme.css" rel="stylesheet">
   <link href="https://unpkg.com/primevue/resources/primevue.min.css" rel="stylesheet">
+
   <script src="https://unpkg.com/primevue/core/core.js"></script>
+
+  <!--
+  <link href="https://unpkg.com/tailwindcss@2.0.1/dist/tailwind.css" rel="stylesheet">
+  <script src="https://unpkg.com/primevue/passthrough/tailwind/index.js"></script>
+  -->
+	
+  <script src="https://unpkg.com/primevue/radiobutton/radiobutton.js"></script>
+  <script src="https://unpkg.com/primevue/selectbutton/selectbutton.js"></script>
   
 </head>
 <body>
@@ -43,11 +57,25 @@
       },
 	  data() {
 		return {
-			text: 'abc'
+			text: 'abc',
+			ingredient: '',
+			value: '',
+			options: ['a', 'b', 'c'],
 		};
 	  },
       template: `
-		<InputText v-model="text" type="text" size="large" placeholder="Large" />		
+<div class="formgrid grid">
+    <div class="field col">
+        <label for="firstname2">Firstname</label>
+        <input id="firstname2" type="text" class="bg-primary surface-500 text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+    </div>
+    <div class="field col">
+        <label for="lastname2">Lastname</label>
+		<InputText type="text" v-model="value" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+    </div>
+</div>
+<SelectButton v-model="value" :options="options" aria-labelledby="basic" />
+
 		{{text}}
 		<my-component>
 			<template #slotB><div>123</div></template>
@@ -56,9 +84,11 @@
     });
 
 	// https://primevue.org/installation
-	app.component('p-inputtext', primevue.inputtext);
 	app.component('InputText', primevue.inputtext);
-	app.use(primevue.config.default);
+	app.component('RadioButton', primevue.radiobutton);
+	app.component('SelectButton', primevue.selectbutton);
+	  
+	//app.use(primevue.config.default, {unstyled: true, pt: primevue.passthrough.tailwind});
 	
 	
     app.mount('#app');
