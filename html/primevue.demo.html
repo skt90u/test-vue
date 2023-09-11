@@ -1,0 +1,68 @@
+<html>
+<head>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js"></script>
+  
+  <!-- primevue -->
+  <link href="https://unpkg.com/primevue/resources/themes/saga-blue/theme.css" rel="stylesheet">
+  <link href="https://unpkg.com/primevue/resources/primevue.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/primevue/core/core.js"></script>
+  
+</head>
+<body>
+  <div id="app"></div>
+  
+  <script>
+
+    const options = {
+      moduleCache: {
+        vue: Vue
+      },
+      async getFile(url) {
+        
+        //return '<template>hello</template>';
+        const res = await fetch(url);
+        if ( !res.ok )
+          throw Object.assign(new Error(res.statusText + ' ' + url), { res });
+        return {
+          getContentData: asBinary => asBinary ? res.arrayBuffer() : res.text(),
+        }
+      },
+      addStyle(textContent) {
+        const style = Object.assign(document.createElement('style'), { textContent });
+        const ref = document.head.getElementsByTagName('style')[0] || null;
+        document.head.insertBefore(style, ref);
+      },
+    }
+
+    const { loadModule } = window['vue3-sfc-loader'];
+
+    const app = Vue.createApp({
+      components: {
+        'my-component': Vue.defineAsyncComponent( () => loadModule('./myComponent.vue', options) )
+      },
+	  data() {
+		return {
+			text: 'abc'
+		};
+	  },
+      template: `
+		<InputText v-model="text" type="text" size="large" placeholder="Large" />		
+		{{text}}
+		<my-component>
+			<template #slotB><div>123</div></template>
+			<template><div>456</div></template>
+		</my-component>`
+    });
+
+	// https://primevue.org/installation
+	app.component('p-inputtext', primevue.inputtext);
+	app.component('InputText', primevue.inputtext);
+	app.use(primevue.config.default);
+	
+	
+    app.mount('#app');
+
+  </script>
+</body>
+</html>
