@@ -1,6 +1,6 @@
 <template>
 	<div>
-		BBB
+		BBBBBBBB
 		<slot name="slotA"></slot>
 		<slot name="slotB"></slot>
 	</div>
