@@ -19,3 +19,8 @@ pnpm run dev
 # 參考資料
 
 https://github.com/vuejs/awesome-vue
+
+# 純 html 開發環境
+pnpm init
+pnpm install global http-server
+pnpm http-server
